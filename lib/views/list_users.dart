@@ -32,16 +32,23 @@ class _UserListState extends State<UserList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users'),
+        backgroundColor: Color.fromRGBO(29, 51, 99, 1),
+        title: const Text(
+          'Users',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
               Navigator.pushNamed(context, "/login");
             },
           ),
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
             onPressed: () {
               showSearch<String>(
                 context: context,
@@ -126,45 +133,61 @@ class _UserListState extends State<UserList> {
     return await showDialog<User>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Edit User'),
-          content: Column(
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: userIdController,
-                decoration: const InputDecoration(labelText: 'User ID'),
-              ),
-              TextField(
-                controller: avatarUrlController,
-                decoration: const InputDecoration(labelText: 'Avatar URL'),
-              ),
-            ],
+        return Dialog(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            width: 500,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Edit User',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextField(
+                  controller: userIdController,
+                  decoration: InputDecoration(labelText: 'User ID'),
+                ),
+                TextField(
+                  controller: avatarUrlController,
+                  decoration: InputDecoration(labelText: 'Avatar URL'),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        final editedUser = User(
+                          id: user.id,
+                          name: nameController.text,
+                          user_id: userIdController.text,
+                          senha: user.senha,
+                          avatarUrl: avatarUrlController.text,
+                        );
+                        Navigator.of(context).pop(editedUser);
+                      },
+                      child: Text('Save Changes'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                final editedUser = User(
-                  id: user.id,
-                  name: nameController.text,
-                  user_id: userIdController.text,
-                  senha: user.senha,
-                  avatarUrl: avatarUrlController.text,
-                );
-                Navigator.of(context).pop(editedUser);
-              },
-              child: const Text('Save Changes'),
-            ),
-          ],
         );
       },
     );
@@ -178,45 +201,61 @@ class _UserListState extends State<UserList> {
     return await showDialog<User>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Add User'),
-          content: Column(
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: userIdController,
-                decoration: const InputDecoration(labelText: 'User ID'),
-              ),
-              TextField(
-                controller: avatarUrlController,
-                decoration: const InputDecoration(labelText: 'Avatar URL'),
-              ),
-            ],
+        return Dialog(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            width: 500,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Add User',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextField(
+                  controller: userIdController,
+                  decoration: InputDecoration(labelText: 'User ID'),
+                ),
+                TextField(
+                  controller: avatarUrlController,
+                  decoration: InputDecoration(labelText: 'Avatar URL'),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        final newUser = User(
+                          id: UniqueKey().toString(),
+                          name: nameController.text,
+                          user_id: userIdController.text,
+                          senha: '123456',
+                          avatarUrl: avatarUrlController.text,
+                        );
+                        Navigator.of(context).pop(newUser);
+                      },
+                      child: Text('Add User'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                final newUser = User(
-                  id: UniqueKey().toString(),
-                  name: nameController.text,
-                  user_id: userIdController.text,
-                  senha: '123456',
-                  avatarUrl: avatarUrlController.text,
-                );
-                Navigator.of(context).pop(newUser);
-              },
-              child: const Text('Add User'),
-            ),
-          ],
         );
       },
     );
@@ -286,7 +325,7 @@ class UserSearchDelegate extends SearchDelegate<String> {
       IconButton(
         icon: const Icon(Icons.clear),
         onPressed: () {
-          query = '';
+          Navigator.of(context).pop();
         },
       ),
     ];
@@ -295,7 +334,10 @@ class UserSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const Icon(
+        Icons.arrow_back,
+        color: Colors.white,
+      ),
       onPressed: () {
         close(context, '');
       },

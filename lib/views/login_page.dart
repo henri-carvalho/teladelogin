@@ -31,8 +31,16 @@ class LoginPage extends StatelessWidget {
           ),
           Center(
             child: Container(
+              constraints: BoxConstraints(
+                minHeight: 400,
+                maxHeight: 400,
+              ),
               width: MediaQuery.of(context).size.width * 0.3,
               padding: const EdgeInsets.all(27),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -40,7 +48,7 @@ class LoginPage extends StatelessWidget {
                   const Text(
                     "Kuehne-Nagel Code challenge",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: const Color.fromRGBO(29, 51, 99, 1),
                       fontSize: 20,
                     ),
                   ),
@@ -50,14 +58,17 @@ class LoginPage extends StatelessWidget {
                     placeholder: "user",
                     controller: usernameController,
                     placeholderStyle:
-                        const TextStyle(color: Colors.white, fontSize: 14),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                    ),
+                        const TextStyle(color: Colors.black45, fontSize: 14),
+                    style: const TextStyle(color: Colors.black45, fontSize: 14),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(
+                          color: Colors.black45, // Cor da borda
+                          width: 0.5,
+                        )),
                   ),
                   const SizedBox(height: 10),
                   CupertinoTextField(
@@ -66,14 +77,17 @@ class LoginPage extends StatelessWidget {
                     obscureText: true,
                     controller: passwordController,
                     placeholderStyle:
-                        const TextStyle(color: Colors.white, fontSize: 14),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                    ),
+                        const TextStyle(color: Colors.black45, fontSize: 14),
+                    style: const TextStyle(color: Colors.black45, fontSize: 14),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(
+                          color: Colors.black45,
+                          width: 0.5,
+                        )),
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
@@ -101,7 +115,7 @@ class LoginPage extends StatelessWidget {
                       child: const Text(
                         "Create an account",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: const Color.fromRGBO(29, 51, 99, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),

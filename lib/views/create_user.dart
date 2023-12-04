@@ -5,13 +5,11 @@ import 'package:myapp/data/mock_users.dart';
 import 'package:myapp/models/user.dart';
 
 class CreateUserPage extends StatelessWidget {
-  // Controladores de texto para os campos do formulário
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController avatarUrlController = TextEditingController();
 
-  // Contador para gerar IDs automaticamente
   int _idCounter = MOCK_USERS.length + 1;
 
   @override
@@ -35,114 +33,137 @@ class CreateUserPage extends StatelessWidget {
           ),
           Center(
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.6,
+              margin: EdgeInsets.all(20),
               padding: const EdgeInsets.all(27),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  const Text(
-                    "New user",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  CupertinoTextField(
-                    padding: const EdgeInsets.all(15),
-                    placeholder: "Full Name",
-                    placeholderStyle:
-                        const TextStyle(color: Colors.white, fontSize: 14),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 10),
+                    const Text(
+                      "New user",
+                      style: TextStyle(
+                        color: const Color.fromRGBO(29, 51, 99, 1),
+                        fontSize: 20,
                       ),
                     ),
-                    controller: fullNameController,
-                  ),
-                  const SizedBox(height: 10),
-                  CupertinoTextField(
-                    padding: const EdgeInsets.all(15),
-                    placeholder: "Username",
-                    placeholderStyle:
-                        const TextStyle(color: Colors.white, fontSize: 14),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                    ),
-                    controller: usernameController,
-                  ),
-                  const SizedBox(height: 10),
-                  CupertinoTextField(
-                    padding: const EdgeInsets.all(15),
-                    placeholder: "Password",
-                    obscureText: true,
-                    placeholderStyle:
-                        const TextStyle(color: Colors.white, fontSize: 14),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                    ),
-                    controller: passwordController,
-                  ),
-                  const SizedBox(height: 10),
-                  CupertinoTextField(
-                    padding: const EdgeInsets.all(15),
-                    placeholder: "Avatar URL",
-                    placeholderStyle:
-                        const TextStyle(color: Colors.white, fontSize: 14),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                    ),
-                    controller: avatarUrlController,
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: CupertinoButton(
-                      padding: const EdgeInsets.all(17),
-                      color: const Color.fromRGBO(29, 51, 99, 1),
-                      child: const Text(
-                        "Create Account",
-                        style: TextStyle(
+                    const SizedBox(height: 10),
+                    CupertinoTextField(
+                      padding: const EdgeInsets.all(15),
+                      placeholder: "Full Name",
+                      placeholderStyle:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      style:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      decoration: BoxDecoration(
                           color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          border: Border.all(
+                            color: Colors.black45,
+                            width: 0.5,
+                          )),
+                      controller: fullNameController,
+                    ),
+                    const SizedBox(height: 10),
+                    CupertinoTextField(
+                      padding: const EdgeInsets.all(15),
+                      placeholder: "Username",
+                      placeholderStyle:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      style:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          border: Border.all(
+                            color: Colors.black45,
+                            width: 0.5,
+                          )),
+                      controller: usernameController,
+                    ),
+                    const SizedBox(height: 10),
+                    CupertinoTextField(
+                      padding: const EdgeInsets.all(15),
+                      placeholder: "Password",
+                      obscureText: true,
+                      placeholderStyle:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      style:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          border: Border.all(
+                            color: Colors.black45,
+                            width: 0.5,
+                          )),
+                      controller: passwordController,
+                    ),
+                    const SizedBox(height: 10),
+                    CupertinoTextField(
+                      padding: const EdgeInsets.all(15),
+                      placeholder: "Avatar URL",
+                      placeholderStyle:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      style:
+                          const TextStyle(color: Colors.black45, fontSize: 14),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          border: Border.all(
+                            color: Colors.black45,
+                            width: 0.5,
+                          )),
+                      controller: avatarUrlController,
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: CupertinoButton(
+                        padding: const EdgeInsets.all(17),
+                        color: const Color.fromRGBO(29, 51, 99, 1),
+                        child: const Text(
+                          "Create Account",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPressed: () {
+                          _createAccount(context);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    CupertinoButton(
+                      child: const Text(
+                        "Back to Login",
+                        style: TextStyle(
+                          color: const Color.fromRGBO(29, 51, 99, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       onPressed: () {
-                        _createAccount(context);
+                        Navigator.pushNamed(context, "/login");
                       },
                     ),
-                  ),
-                  const SizedBox(height: 7),
-                  CupertinoButton(
-                    child: const Text(
-                      "Back to Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/login");
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
