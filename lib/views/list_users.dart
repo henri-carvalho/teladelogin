@@ -27,7 +27,6 @@ class UserList extends StatefulWidget {
 
 class _UserListState extends State<UserList> {
   List<User> displayedUsers = List.from(MOCK_USERS.values);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

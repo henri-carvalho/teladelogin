@@ -1,16 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/data/mock_users.dart';
-import 'package:myapp/models/user.dart';
+import 'package:myapp/controllers/create_user_controller.dart';
 
 class CreateUserPage extends StatelessWidget {
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController avatarUrlController = TextEditingController();
-
-  int _idCounter = MOCK_USERS.length + 1;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class CreateUserPage extends StatelessWidget {
           ),
           Center(
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.6,
+              width: MediaQuery.of(context).size.width * 0.4,
               margin: EdgeInsets.all(20),
               padding: const EdgeInsets.all(27),
               decoration: BoxDecoration(
@@ -61,34 +58,74 @@ class CreateUserPage extends StatelessWidget {
                       style:
                           const TextStyle(color: Colors.black45, fontSize: 14),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          border: Border.all(
-                            color: Colors.black45,
-                            width: 0.5,
-                          )),
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(
+                          color: Colors.black45,
+                          width: 0.5,
+                        ),
+                      ),
                       controller: fullNameController,
                     ),
                     const SizedBox(height: 10),
-                    CupertinoTextField(
-                      padding: const EdgeInsets.all(15),
-                      placeholder: "Username",
-                      placeholderStyle:
-                          const TextStyle(color: Colors.black45, fontSize: 14),
-                      style:
-                          const TextStyle(color: Colors.black45, fontSize: 14),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CupertinoTextField(
+                            padding: const EdgeInsets.all(15),
+                            placeholder: "Username",
+                            placeholderStyle: const TextStyle(
+                                color: Colors.black45, fontSize: 14),
+                            style: const TextStyle(
+                                color: Colors.black45, fontSize: 14),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200], // Light grey color
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              border: Border.all(
+                                color: Colors.grey[300] ??
+                                    Colors
+                                        .grey, // Slightly darker grey color, defaulting to Colors.grey
+
+                                width: 0.5,
+                              ),
+                            ),
+                            controller: usernameController,
+                            enabled: false, // Make username non-editable
                           ),
-                          border: Border.all(
-                            color: Colors.black45,
-                            width: 0.5,
-                          )),
-                      controller: usernameController,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color.fromRGBO(29, 51, 99, 1),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                                horizontal: 20,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
+                              String generatedUsername =
+                                  UserCreationLogic.generateUsername(
+                                      fullNameController.text);
+                              usernameController.text = generatedUsername;
+                            },
+                            child: const Text(
+                              "Generate Username",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     CupertinoTextField(
@@ -100,41 +137,57 @@ class CreateUserPage extends StatelessWidget {
                       style:
                           const TextStyle(color: Colors.black45, fontSize: 14),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          border: Border.all(
-                            color: Colors.black45,
-                            width: 0.5,
-                          )),
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(
+                          color: Colors.black45,
+                          width: 0.5,
+                        ),
+                      ),
                       controller: passwordController,
                     ),
                     const SizedBox(height: 10),
                     CupertinoTextField(
                       padding: const EdgeInsets.all(15),
-                      placeholder: "Avatar URL",
+                      placeholder: "Insert a link to your profile picture",
                       placeholderStyle:
                           const TextStyle(color: Colors.black45, fontSize: 14),
                       style:
                           const TextStyle(color: Colors.black45, fontSize: 14),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          border: Border.all(
-                            color: Colors.black45,
-                            width: 0.5,
-                          )),
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(
+                          color: Colors.black45,
+                          width: 0.5,
+                        ),
+                      ),
                       controller: avatarUrlController,
                     ),
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
-                      child: CupertinoButton(
-                        padding: const EdgeInsets.all(17),
-                        color: const Color.fromRGBO(29, 51, 99, 1),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromRGBO(29, 51, 99, 1),
+                          padding: const EdgeInsets.all(17),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          UserCreationLogic.createAccount(
+                            context,
+                            fullNameController: fullNameController,
+                            usernameController: usernameController,
+                            passwordController: passwordController,
+                            avatarUrlController: avatarUrlController,
+                          );
+                        },
                         child: const Text(
                           "Create Account",
                           style: TextStyle(
@@ -143,9 +196,6 @@ class CreateUserPage extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        onPressed: () {
-                          _createAccount(context);
-                        },
                       ),
                     ),
                     const SizedBox(height: 7),
@@ -169,68 +219,6 @@ class CreateUserPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  void _createAccount(BuildContext context) {
-    String fullName = fullNameController.text;
-    String username = usernameController.text;
-    String password = passwordController.text;
-    String avatarUrl = avatarUrlController.text;
-
-    if (fullName.isEmpty ||
-        username.isEmpty ||
-        password.isEmpty ||
-        avatarUrl.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Campos obrigatórios'),
-            content:
-                const Text('Preencha todos os campos para criar uma conta.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-      return;
-    }
-
-    User newUser = User(
-      id: _idCounter.toString(),
-      name: fullName,
-      user_id: username,
-      senha: password,
-      avatarUrl: avatarUrl,
-    );
-
-    MOCK_USERS[_idCounter.toString()] = newUser;
-    _idCounter++;
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Conta criada'),
-          content: const Text('Sua conta foi criada com sucesso.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, "/login");
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

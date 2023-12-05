@@ -1,7 +1,8 @@
+// login_page.dart
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/data/mock_users.dart';
+import 'package:myapp/controllers/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key, required this.navigatorKey}) : super(key: key);
@@ -61,14 +62,15 @@ class LoginPage extends StatelessWidget {
                         const TextStyle(color: Colors.black45, fontSize: 14),
                     style: const TextStyle(color: Colors.black45, fontSize: 14),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        border: Border.all(
-                          color: Colors.black45, // Cor da borda
-                          width: 0.5,
-                        )),
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      border: Border.all(
+                        color: Colors.black45, // Cor da borda
+                        width: 0.5,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   CupertinoTextField(
@@ -80,14 +82,15 @@ class LoginPage extends StatelessWidget {
                         const TextStyle(color: Colors.black45, fontSize: 14),
                     style: const TextStyle(color: Colors.black45, fontSize: 14),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        border: Border.all(
-                          color: Colors.black45,
-                          width: 0.5,
-                        )),
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      border: Border.all(
+                        color: Colors.black45,
+                        width: 0.5,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
@@ -135,38 +138,11 @@ class LoginPage extends StatelessWidget {
   }
 
   void _performLogin(BuildContext context) {
-    String username = usernameController.text;
-    String password = passwordController.text;
-
-    if (_isLoginValid(username, password)) {
-      navigatorKey.currentState?.pushReplacementNamed('/home');
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Erro de Login'),
-            content: const Text('Login ou senha incorretos. Tente novamente.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  bool _isLoginValid(String username, String password) {
-    for (var user in MOCK_USERS.values) {
-      if (user.user_id == username && user.senha == password) {
-        return true;
-      }
-    }
-    return false;
+    LoginController.performLogin(
+      context,
+      navigatorKey: navigatorKey,
+      usernameController: usernameController,
+      passwordController: passwordController,
+    );
   }
 }
