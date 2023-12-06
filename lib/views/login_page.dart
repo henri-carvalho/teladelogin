@@ -13,6 +13,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Scaffold(
       body: Stack(
         children: [
@@ -36,7 +37,9 @@ class LoginPage extends StatelessWidget {
                 minHeight: 400,
                 maxHeight: 400,
               ),
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: isMobile
+                  ? MediaQuery.of(context).size.width * 0.9
+                  : MediaQuery.of(context).size.width * 0.3,
               padding: const EdgeInsets.all(27),
               decoration: BoxDecoration(
                 color: Colors.white,

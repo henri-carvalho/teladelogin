@@ -11,6 +11,7 @@ class CreateUserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Scaffold(
       body: Stack(
         children: [
@@ -30,7 +31,9 @@ class CreateUserPage extends StatelessWidget {
           ),
           Center(
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: isMobile
+                  ? MediaQuery.of(context).size.width * 0.9
+                  : MediaQuery.of(context).size.width * 0.4,
               margin: EdgeInsets.all(20),
               padding: const EdgeInsets.all(27),
               decoration: BoxDecoration(

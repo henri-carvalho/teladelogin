@@ -4,7 +4,7 @@ var MOCK_USERS = {
   '1': User(
       id: '6',
       name: 'Admin',
-      user_id: 'Admin',
+      user_id: 'admin',
       senha: 'admin',
       avatarUrl:
           'https://cdn.pixabay.com/photo/2013/07/13/01/22/key-155629_1280.png'),
